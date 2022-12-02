@@ -21,6 +21,6 @@ List of fields:
 4)activating/deactivating a card
 5) deleting a card
 
-Implement a card generator, indicating the series and number of generated cards, as well as the "end date of activity" with the values "1 year", "6 months" and "1 month". After the expiration of the card's activity period, the card has the status "expired".
+Implement a card generator, indicating the series and number of generated cards, as well as the "end date of activity" with the values "1 year", "3 years" and "5 years". After the expiration of the card's activity period, the card has the status "expired".
 
 Note: The date fields must also contain the time.
