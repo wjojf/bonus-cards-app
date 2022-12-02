@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    <div class="container">
+        <form action="" method="post">{%csrf_token%}
+            {% for field in form%}
+    
+            <label class="control-label" for="">{{field.label}}</label>
+            {% render_field field class='form-control' %}
+            
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block mb-4" value="_filter" name="_filter">Update</button>
+        </form>
+    </div>
+    
+{% endblock%}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block extrastyle %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#searchBar").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable > tbody > tr").filter(function() { 
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+  {% include 'navbar.html' %}
+  <!-- <h5>Welcome, {{request.user}}</h5> -->
+  {% if request.user.is_authenticated %}
+    {% include 'core/filters.html' %}
+    <table id="MyTable" class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Series</th>
+        <th>Number</th>
+        <th>Status</th>
+        <th>Created</th>
+        <th>Expiring</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{obj.series}}</p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <p class="fw-bold mb-1">{{obj.number}}</p>
+        </td>
+        <td>
+          {% if obj.is_active %}
+              <span class="badge badge-success rounded-pill d-inline">{{obj.status}}</span>
+          {% elif obj.is_not_active %}
+            <span class="badge badge-primary rounded-pill d-inline">{{obj.status}}</span>
+          {% else %}
+            <span class="badge badge-warning rounded-pill d-inline">{{obj.status}}</span>
+          {% endif %}
+        </td>
+        <td>{{obj.date_created|date:"d M Y"}}</td>
+        <td>{{obj.date_expired|date:"d M Y"}}</td>
+        
+        <td>
+          {% if request.user.is_superuser %}
+            <button type="button" class="btn btn-link" data-mdb-ripple-color="dark">
+              <a href="{% url 'card-transactions' obj.id %}">View Transactions</a>
+            </button>
+          {% if obj.is_active %}
+            <button ttype="button" class="btn btn-link" data-mdb-ripple-color="dark">
+              <a href="{% url 'deactivate' obj.id %}">Deactivate</a>
+            </button>
+          {% else %}  
+            <button type="button" class="btn btn-link" data-mdb-ripple-color="dark">
+              <a href="{% url 'activate' obj.id %}">Activate</a>
+            </button>
+          {% endif %}
+          <form action="{% url 'delete' obj.id%}" method="POST" onsubmit="return confirm ('Are you sure you want to delete Card {{obj}}?')">{%csrf_token%}
+            <button
+            type="submit"
+             class="btn btn-link" data-mdb-ripple-color="dark" onclick="">
+              Delete
+            </button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  {% else %}
+    <p>You have to be logged in to see the data!</p>
+  {% endif %}
+
+  {% endblock content %}

@@ -1,0 +1,18 @@
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Welcome to Cards Aggragator!</title>
+        <link rel="stylesheet" href="{% static 'css/mdb.min.css'%}">
+        <script src="{% static 'js/mdb.min.js' %}"></script>
+        {% block extrastyle %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+    
+        {% endblock %}
+    </body>
+</html>
