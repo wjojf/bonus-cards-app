@@ -57,17 +57,14 @@
         
         <td>
           {% if request.user.is_superuser %}
-            <button type="button" class="btn btn-link" data-mdb-ripple-color="dark">
               <a href="{% url 'card-transactions' obj.id %}">View Transactions</a>
-            </button>
+              <br>
           {% if obj.is_active %}
-            <button ttype="button" class="btn btn-link" data-mdb-ripple-color="dark">
               <a href="{% url 'deactivate' obj.id %}">Deactivate</a>
-            </button>
+              <br>
           {% else %}  
-            <button type="button" class="btn btn-link" data-mdb-ripple-color="dark">
               <a href="{% url 'activate' obj.id %}">Activate</a>
-            </button>
+              <br>
           {% endif %}
           <form action="{% url 'delete' obj.id%}" method="POST" onsubmit="return confirm ('Are you sure you want to delete Card {{obj}}?')">{%csrf_token%}
             <button
