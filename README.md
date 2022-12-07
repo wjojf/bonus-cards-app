@@ -1,5 +1,17 @@
 # Welcome to Cards Aggregator!
 
+# Quick Start with Docker
+
+1) Open `docker-compose.yml`
+
+2) Place your DJANGO SECRET KEY here:
+```
+  environment:
+      - DEBUG=1
+      - DJANGO_SECRET_KEY=""
+```
+
+3) `docker compose up --build` in your terminal
 
 # Requirements
 
